@@ -1,5 +1,5 @@
 <template>
-  <h2>MY TODO</h2>
+  footer
 </template>
 
 <script>
@@ -9,5 +9,5 @@ export default {
 </script>
 
 <style>
-h2 { text-align: center; }
+
 </style>
