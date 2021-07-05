@@ -1,7 +1,7 @@
 <template>
   <todoheader></todoheader>
-  <todoinput />
-  <todolist />
+  <todoinput @addTodo="addTodo;$event"/>
+  <todolist :todoItems="todoItems" @removeTodo="removeTodo"/>
   <todofooter />
 </template>
 
@@ -21,15 +21,48 @@ export default {
     todoinput,
     todolist,
     todofooter
+  },
+   data(){
+    return{
+      todoItems:[]
+    }
+  },
+  created(){
+    // this.todoItems.push('안녕하세요');
+    // this.todoItems.push('반갑습니다');
+
+    for(let i=0;i<localStorage.length;i++){
+      if(localStorage.key(i) !== "loglevel:webpack-dev-server"){
+      this.todoItems.push(localStorage.key(i));
+      }
+    }
+  },
+  methods:{
+    addTodo(todoItem){
+      localStorage.setItem(todoItem,todoItem)
+      this.todoItems.push(todoItem)
+    },
+    removeTodo(todoItem,index){
+      localStorage.removeItem(todoItem)
+      this.todoItems.splice(index,1)
+    }
   }
 }
 </script>
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
-  body{font-family: 'Roboto', sans-serif; background: #f6f6f8;}
+  body{font-family: 'Roboto', sans-serif; background: #f6f6f8; text-align: center;}
   *{margin:0; padding: 0;}
   a:link, a:visited {text-decoration: none; color: #333;}
   clearfix:after{content:''; display: block; clear:both;}
   li{list-style: none;}
+
+  #app { padding: 0 20px;}
+
+  input {border-style: groove; width: 70%;}
+  button {
+    
+  }
+  .shadow { box-shadow: 5px 10px 10px rgba(0,0,0,0.03);}
 </style>
